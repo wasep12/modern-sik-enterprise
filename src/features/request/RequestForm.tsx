@@ -12,7 +12,6 @@ import {
   Clock,
   Loader2
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Button } from '../../components/ui/button';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
@@ -84,7 +83,7 @@ export const RequestForm: React.FC = () => {
       </div>
 
       <div className="bg-white dark:bg-slate-900 rounded-[32px] border dark:border-slate-800 shadow-2xl overflow-hidden">
-        <div className="p-10 bg-gradient-to-br from-primary/5 via-transparent to-transparent border-b dark:border-slate-800">
+        <div className="p-10 bg-linear-to-br from-primary/5 via-transparent to-transparent border-b dark:border-slate-800">
           <div className="flex items-center gap-4">
              <div className="h-14 w-14 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30">
                 <FileCheck className="h-7 w-7" />

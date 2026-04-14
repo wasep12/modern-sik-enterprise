@@ -4,9 +4,6 @@ import { useSikStore } from '../../store/useSikStore';
 import { Button } from '../../components/ui/button';
 import { 
   ShieldCheck, 
-  ArrowRight, 
-  Mail, 
-  Lock, 
   Eye, 
   EyeOff,
   Loader2,

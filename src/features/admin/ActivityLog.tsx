@@ -6,7 +6,6 @@ import {
   Smartphone, 
   Globe, 
   Clock, 
-  User as UserIcon,
   ShieldAlert,
   Search,
   ChevronRight,
@@ -15,10 +14,10 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { format } from 'date-fns';
-import { id } from 'date-fns/locale';
 import { Button } from '../../components/ui/button';
 import { Skeleton } from '../../components/ui/skeleton';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { cn } from '../../lib/utils';
 
 // HELPER: Specialized Skeletons for Audit Logs
 const AuditLogSkeleton = () => (
@@ -95,7 +94,7 @@ export const ActivityLog: React.FC = () => {
               </div>
 
               <div className="p-8">
-                 <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 dark:before:via-slate-800 before:to-transparent">
+                 <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-linear-to-b before:from-transparent before:via-slate-200 dark:before:via-slate-800 before:to-transparent">
                     <AnimatePresence mode="wait">
                        {isLoading ? (
                           <motion.div key="skeleton" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -166,7 +165,7 @@ export const ActivityLog: React.FC = () => {
               </div>
            </div>
 
-           <div className="bg-gradient-to-br from-primary to-blue-600 rounded-[32px] p-8 text-white shadow-2xl shadow-primary/30 relative overflow-hidden group">
+           <div className="bg-linear-to-br from-primary to-blue-600 rounded-[32px] p-8 text-white shadow-2xl shadow-primary/30 relative overflow-hidden group">
               <div className="absolute top-0 left-0 w-full h-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
               <h4 className="font-black text-sm uppercase tracking-tighter mb-2">Automated Report</h4>
               <p className="text-white/70 text-xs font-medium leading-relaxed mb-6">Sistem mencatat setiap pergeseran status SIK untuk kepatuhan ISO 27001.</p>

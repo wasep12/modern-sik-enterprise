@@ -11,17 +11,14 @@ import {
   X,
   ShieldCheck,
   Calendar,
-  Building,
   User as UserIcon,
-  Search,
   ChevronLeft,
   ChevronRight,
   History,
   MessageCircle,
   Sparkles,
   Zap,
-  Activity,
-  AlertCircle
+  Activity
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn, formatID } from '../../lib/utils';
@@ -561,7 +558,7 @@ const StatusCard: React.FC<StatusCardProps> = ({ title, count, icon: Icon, color
         <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 truncate">{title}</p>
         <p className="text-3xl sm:text-4xl font-black tracking-tighter dark:text-white">{count}</p>
       </div>
-      <div className={cn("p-4 sm:p-5 rounded-2xl bg-gradient-to-br border shrink-0", colors[color])}>
+      <div className={cn("p-4 sm:p-5 rounded-2xl bg-linear-to-br border shrink-0", colors[color])}>
         <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
       </div>
     </div>

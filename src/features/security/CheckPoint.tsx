@@ -94,7 +94,7 @@ export const CheckPoint: React.FC = () => {
           >
             {/* Control Panel */}
             <div className="bg-white dark:bg-slate-900 rounded-[32px] sm:rounded-[48px] border dark:border-slate-800 shadow-2xl p-6 sm:p-12 flex flex-col items-center text-center relative overflow-hidden transform-gpu">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-blue-400 to-primary" />
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-primary via-blue-400 to-primary" />
               
               <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-[28px] bg-primary flex items-center justify-center mb-6 shadow-2xl shadow-primary/40 relative">
                  <div className="absolute inset-0 bg-white/20 rounded-[28px] animate-ping opacity-10" />
@@ -112,7 +112,7 @@ export const CheckPoint: React.FC = () => {
                   <input 
                     type="text" 
                     placeholder="Input ID SIK..."
-                    className="w-full pl-12 pr-4 h-14 sm:h-16 bg-slate-50 dark:bg-slate-800 border dark:border-slate-200 rounded-2xl shadow-inner outline-none focus:ring-4 focus:ring-primary/10 transition-all text-sm font-bold dark:text-white dark:border-slate-800"
+                    className="w-full pl-12 pr-4 h-14 sm:h-16 bg-slate-50 dark:bg-slate-800 border rounded-2xl shadow-inner outline-none focus:ring-4 focus:ring-primary/10 transition-all text-sm font-bold dark:text-white dark:border-slate-800"
                     value={searchId}
                     onChange={(e) => setSearchId(e.target.value)}
                   />

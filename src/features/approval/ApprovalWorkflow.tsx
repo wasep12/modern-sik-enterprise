@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSikStore } from '../../store/useSikStore';
 import { 
   CheckCircle, 
-  XSquare, 
   User as UserIcon, 
   MapPin, 
   FileSearch,
-  ShieldCheck,
   X,
   Sparkles
 } from 'lucide-react';
@@ -90,7 +88,7 @@ export const ApprovalWorkflow: React.FC = () => {
           {isLoading ? (
              [1, 2, 3, 4].map(i => <ApprovalCardSkeleton key={i} />)
           ) : pendingRequests.length > 0 ? (
-            pendingRequests.map((req, idx) => (
+            pendingRequests.map((req) => (
               <motion.div 
                 layout
                 initial={{ opacity: 0, scale: 0.98 }}

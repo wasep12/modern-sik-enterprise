@@ -95,7 +95,7 @@ export const ThemeToggle = () => {
                 {themes.map((t) => (
                   <button
                     key={t.name}
-                    onClick={(e) => handleThemeChange(t.name, e)}
+                    onClick={() => handleThemeChange(t.name)}
                     className={cn(
                       "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer",
                       theme === t.name

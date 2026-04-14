@@ -3,19 +3,17 @@ import { useSikStore } from '../../store/useSikStore';
 import { 
   Users, 
   UserPlus, 
-  MoreVertical, 
   Edit3, 
   Trash2, 
   Shield, 
   Mail,
   Search,
-  Check,
   X,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../../components/ui/button';
 import { cn } from '../../lib/utils';
-import type { UserRole, User } from '../../types/sik';
+import type { UserRole } from '../../types/sik';
 import { Skeleton } from '../../components/ui/skeleton';
 import { EmptyState } from '../../components/ui/EmptyState';
 
@@ -134,7 +132,7 @@ export const UserManagement: React.FC = () => {
                         >
                           <td className="px-8 py-6">
                             <div className="flex items-center gap-4">
-                              <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 font-black text-lg border-2 border-white dark:border-slate-800 group-hover:scale-110 transition-transform shadow-sm">
+                              <div className="h-12 w-12 rounded-2xl bg-linear-to-tr from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 font-black text-lg border-2 border-white dark:border-slate-800 group-hover:scale-110 transition-transform shadow-sm">
                                 {user.avatar || user.name.charAt(0)}
                               </div>
                               <div>
