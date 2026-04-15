@@ -229,7 +229,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
                 {showNotifications && (
                   <>
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40" onClick={() => setShowNotifications(false)} />
-                    <motion.div initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} className="absolute right-0 mt-3 w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-hairline border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-50 overflow-hidden">
+                    <motion.div initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} className="fixed sm:absolute left-4 right-4 sm:left-auto sm:right-0 top-20 sm:top-auto sm:mt-3 sm:w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-hairline border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-50 overflow-hidden">
                       <div className="p-5 border-b border-hairline dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/50">
                         <span className="font-black text-[10px] uppercase tracking-widest dark:text-white">Central Activity</span>
                         <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
@@ -260,7 +260,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
                 {showProfileMenu && (
                   <>
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40" onClick={() => setShowProfileMenu(false)} />
-                    <motion.div initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} className="absolute right-0 mt-3 w-48 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-hairline border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-50 overflow-hidden">
+                    <motion.div initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} className="fixed sm:absolute right-4 left-4 sm:left-auto sm:right-0 top-20 sm:top-auto sm:mt-3 sm:w-48 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-hairline border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 overflow-hidden">
                       <div className="p-1">
                         <Button variant="ghost" onClick={() => { navigate('/profile'); setShowProfileMenu(false); }} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors justify-start border-none h-auto">
                           <UserIcon className="h-3.5 w-3.5" /> Profile

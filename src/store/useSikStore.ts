@@ -183,13 +183,21 @@ export const useSikStore = create<SikState>((set, get) => ({
     const actorRole = state.currentUser?.role || 'Approver';
     const newRequests = state.requests.map((req) => {
       if (req.id !== id) return req;
+      
       let newStatus = req.status;
       let newStep = req.currentStep;
       let actionMsg = '';
 
-      if (req.status === 'PENDING_L1') { newStatus = 'PENDING_L2'; newStep = 2; actionMsg = 'Disetujui L1'; }
-      else if (req.status === 'PENDING_L2') { newStatus = 'PENDING_L3'; newStep = 3; actionMsg = 'Disetujui L2'; }
-      else if (req.status === 'PENDING_L3') { newStatus = 'APPROVED'; actionMsg = 'Persetujuan Final'; }
+      if (actorRole === 'ADMIN') {
+         // Auto-bypass all levels for Super Admin to prevent 3x clicking
+         newStatus = 'APPROVED';
+         newStep = 4;
+         actionMsg = 'Persetujuan Bypass (Admin)';
+      } else {
+        if (req.status === 'PENDING_L1') { newStatus = 'PENDING_L2'; newStep = 2; actionMsg = 'Disetujui L1'; }
+        else if (req.status === 'PENDING_L2') { newStatus = 'PENDING_L3'; newStep = 3; actionMsg = 'Disetujui L2'; }
+        else if (req.status === 'PENDING_L3') { newStatus = 'APPROVED'; newStep = 4; actionMsg = 'Persetujuan Final'; }
+      }
 
       return { ...req, status: newStatus, currentStep: newStep, updatedAt: new Date().toISOString(), 
                logs: [...(req.logs || []), createLog(newStatus, actionMsg, actorRole)] };
