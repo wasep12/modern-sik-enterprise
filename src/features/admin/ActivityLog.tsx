@@ -77,13 +77,13 @@ export const ActivityLog: React.FC = () => {
   );
 
   return (
-    <div className="space-y-8 pb-32 max-w-[1400px] mx-auto">
+    <div className="space-y-6 sm:space-y-8 pb-32 max-w-[1400px] mx-auto w-full px-0 sm:px-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 px-1">
-        <div>
+        <div className="px-4 sm:px-0">
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tighter">Riwayat Aktivitas</h2>
           <p className="text-slate-500 font-medium text-xs sm:text-sm mt-1">Monitor aktivitas penggunaan akun dan riwayat perubahan sistem.</p>
         </div>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 px-4 sm:px-0">
            <Button variant="outline" className="flex-1 sm:flex-none rounded-xl border border-slate-200 dark:border-slate-800 text-[10px] font-black uppercase tracking-widest px-4 h-11 bg-white dark:bg-slate-900 text-slate-700 dark:text-white shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer">
               <BarChart3 className="h-4 w-4 mr-2" />
               Reset Logs
@@ -98,9 +98,9 @@ export const ActivityLog: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* MAIN FEED */}
         <div className="lg:col-span-8 space-y-4">
-           <div className="bg-white dark:bg-slate-900 rounded-[32px] sm:rounded-[40px] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-slate-200/50 dark:shadow-none overflow-hidden">
+           <div className="bg-white dark:bg-slate-900 sm:rounded-[40px] border-y sm:border border-slate-200 dark:border-slate-800 shadow-2xl shadow-slate-200/50 dark:shadow-none overflow-hidden">
               {/* Search bar */}
-              <div className="p-4 sm:p-6 border-b border-slate-100 dark:border-slate-800">
+              <div className="p-4 sm:p-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/50">
                 <div className="relative">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                   <input 
@@ -114,8 +114,8 @@ export const ActivityLog: React.FC = () => {
               </div>
 
               {/* Log list */}
-              <div className="px-4 sm:px-8 py-8">
-                 <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-linear-to-b before:from-transparent before:via-slate-200 dark:before:via-slate-800 before:to-transparent">
+              <div className="px-3 sm:px-8 py-6 sm:py-8">
+                 <div className="relative space-y-6 sm:space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-linear-to-b before:from-transparent before:via-slate-200 dark:before:via-slate-800 before:to-transparent">
                     <AnimatePresence mode="wait">
                        {isLoading ? (
                           <motion.div key="skeleton" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -203,8 +203,8 @@ export const ActivityLog: React.FC = () => {
         </div>
 
         {/* SIDEBAR STATS */}
-        <div className="lg:col-span-4 space-y-6">
-           <div className="bg-white dark:bg-slate-900 rounded-[32px] border border-slate-200 dark:border-slate-800 p-8 shadow-xl">
+        <div className="lg:col-span-4 space-y-6 px-0 sm:px-0">
+           <div className="bg-white dark:bg-slate-900 sm:rounded-[32px] border-y sm:border border-slate-200 dark:border-slate-800 p-8 shadow-xl">
               <h4 className="font-black text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-8 flex items-center gap-2">
                  <Clock className="h-4 w-4 text-primary" />
                  Global Summary
@@ -226,7 +226,7 @@ export const ActivityLog: React.FC = () => {
               </div>
            </div>
 
-           <div className="bg-linear-to-br from-slate-900 to-slate-950 dark:from-primary dark:to-indigo-600 rounded-[32px] p-8 text-white shadow-2xl relative overflow-hidden group">
+           <div className="bg-linear-to-br from-slate-900 to-slate-950 dark:from-primary dark:to-indigo-600 sm:rounded-[32px] p-8 text-white shadow-2xl relative overflow-hidden group">
               <div className="absolute -right-10 -bottom-10 h-40 w-40 bg-white/5 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
               <div className="relative z-10">
                 <h4 className="font-black text-sm uppercase tracking-tighter mb-2">Laporan Otomatis</h4>
