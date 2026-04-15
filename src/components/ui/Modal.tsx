@@ -37,7 +37,7 @@ export const Modal: React.FC<ModalProps> = ({
   return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-6">
           {/* Backdrop Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -57,7 +57,8 @@ export const Modal: React.FC<ModalProps> = ({
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className={cn(
-              "relative z-10 w-full max-w-lg bg-white dark:bg-slate-900 shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800",
+              "relative z-10 w-full h-full sm:h-auto sm:max-h-[90vh] bg-white dark:bg-slate-900 shadow-2xl overflow-hidden sm:border sm:border-slate-200 dark:sm:border-slate-800 flex flex-col",
+              "sm:rounded-[32px]",
               className
             )}
           >

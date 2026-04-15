@@ -20,7 +20,6 @@ import {
   Zap,
   Activity
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { cn, formatID } from '../../lib/utils';
 import type { SikRequest } from '../../types/sik';
 import { QRCodeSVG } from 'qrcode.react';
@@ -30,6 +29,7 @@ import { Skeleton } from '../../components/ui/skeleton';
 import { toast } from 'sonner';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { useNavigate } from 'react-router-dom';
+import { Modal } from '../../components/ui/Modal';
 
 // HELPER: Specialized Skeletons for Best Practice
 const StatusCardSkeleton = () => (
@@ -455,148 +455,141 @@ export const MySik: React.FC = () => {
       </div>
 
       {/* SIK Detail Modal */}
-      <AnimatePresence>
+      <Modal 
+        isOpen={!!selectedReq} 
+        onClose={() => setSelectedReq(null)}
+        className="max-w-4xl"
+      >
         {selectedReq && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm" 
-              onClick={() => setSelectedReq(null)} 
-            />
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-4xl bg-white dark:bg-slate-900 rounded-[32px] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
-            >
-              <div className="absolute top-4 right-4 z-20">
-                 <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="rounded-full bg-slate-900/10 dark:bg-slate-800/50 backdrop-blur-md dark:text-white" 
-                    onClick={() => setSelectedReq(null)}
-                >
-                   <X className="h-5 w-5" />
-                 </Button>
-              </div>
+          <div className="flex flex-col md:flex-row h-full">
+            {/* Close button for mobile */}
+            <div className="absolute top-4 right-4 z-50 md:hidden">
+               <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-full bg-slate-900/10 dark:bg-slate-800/50 backdrop-blur-md dark:text-white" 
+                  onClick={() => setSelectedReq(null)}
+               >
+                 <X className="h-5 w-5" />
+               </Button>
+            </div>
 
-              {/* Left Column: SIK Certificate */}
-              <div className="w-full md:w-[400px] lg:w-[450px] shrink-0 flex flex-col border-b md:border-b-0 md:border-r dark:border-slate-800 overflow-y-auto">
-                <div className="bg-primary p-8 sm:p-10 text-white relative overflow-hidden shrink-0">
-                  <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <ShieldCheck className="h-32 w-32" />
-                  </div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-2 text-primary-foreground/70">Modern Enterprise SIK</p>
-                  <h2 className="text-2xl sm:text-3xl font-black tracking-tighter mb-4">SURAT IZIN KERJA</h2>
+            {/* Left Column: SIK Certificate */}
+            <div className="w-full md:w-[400px] lg:w-[450px] shrink-0 flex flex-col border-b md:border-b-0 md:border-r dark:border-slate-800 bg-white dark:bg-slate-900 overflow-y-auto">
+              <div className="bg-primary p-8 sm:p-10 text-white relative overflow-hidden shrink-0">
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                  <ShieldCheck className="h-32 w-32" />
+                </div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-2 text-primary-foreground/70 text-left">Modern Enterprise SIK</p>
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tighter mb-4 text-left">SURAT IZIN KERJA</h2>
+                <div className="flex">
                   <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold ring-1 ring-white/30">
                     ID: {formatID(selectedReq.id)}
                   </div>
                 </div>
+              </div>
 
-                <div className="p-6 sm:p-8 space-y-6">
-                    <div className="flex gap-6 items-start">
-                        <div className="h-28 w-28 sm:h-32 sm:w-32 bg-white dark:bg-slate-200 p-3 rounded-2xl border flex items-center justify-center shrink-0">
-                            <QRCodeSVG value={selectedReq.id} size={100} level="H" />
-                        </div>
-                        <div className="space-y-4 flex-1 min-w-0">
-                            <div className="space-y-1">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Status</p>
-                                <StatusBadge status={selectedReq.status} />
-                            </div>
-                            <div className="space-y-1">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase">Pelaksana</p>
-                                <p className="text-xs font-bold dark:text-white truncate">{selectedReq.userName}</p>
-                            </div>
-                        </div>
+              <div className="p-6 sm:p-8 space-y-6">
+                <div className="flex gap-6 items-start">
+                    <div className="h-28 w-28 sm:h-32 sm:w-32 bg-white dark:bg-slate-200 p-3 rounded-2xl border flex items-center justify-center shrink-0">
+                        <QRCodeSVG value={selectedReq.id} size={100} level="H" />
                     </div>
-
-                    <div className="h-px bg-slate-100 dark:bg-slate-800" />
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-2">
-                      <div className="flex items-center gap-3">
-                        <div className="h-9 w-9 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0">
-                            <Calendar className="h-4 w-4 text-primary" />
+                    <div className="space-y-4 flex-1 min-w-0">
+                        <div className="space-y-1">
+                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Status</p>
+                            <StatusBadge status={selectedReq.status} />
                         </div>
-                        <div className="min-w-0">
-                            <p className="text-[9px] font-bold text-slate-400 uppercase leading-none mb-1">Mulai</p>
-                            <p className="text-[11px] font-bold dark:text-white truncate">{format(new Date(selectedReq.startTime), 'HH:mm - dd/MM/yy')}</p>
+                        <div className="space-y-1 text-left">
+                            <p className="text-[10px] font-bold text-slate-400 uppercase">Pelaksana</p>
+                            <p className="text-xs font-bold dark:text-white truncate">{selectedReq.userName}</p>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="h-9 w-9 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0">
-                            <Clock className="h-4 w-4 text-primary" />
-                        </div>
-                        <div className="min-w-0">
-                            <p className="text-[9px] font-bold text-slate-400 uppercase leading-none mb-1">Selesai</p>
-                            <p className="text-[11px] font-bold dark:text-white truncate">{format(new Date(selectedReq.endTime), 'HH:mm - dd/MM/yy')}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-xs font-medium italic text-slate-500 border dark:border-slate-800">
-                    "{selectedReq.jobDescription}"
-                    </div>
-
-                    <div className="flex flex-col gap-2 pt-2">
-                    <Button 
-                        size="sm" 
-                        className="rounded-xl h-11 font-bold bg-emerald-500 hover:bg-emerald-600 border-none transition-all active:scale-95"
-                        onClick={() => handleShareWA(selectedReq.id)}
-                    >
-                        <MessageCircle className="h-4 w-4 mr-2" />
-                        Kirim ke WhatsApp
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="rounded-xl h-11 font-bold active:scale-95 dark:text-white dark:border-slate-800"
-                      onClick={handleDownload}
-                    >
-                        <Download className="h-4 w-4 mr-2" />
-                        Unduh PDF
-                    </Button>
                     </div>
                 </div>
-              </div>
 
-              {/* Right Column: Audit Trail */}
-              <div className="flex-1 bg-slate-50 dark:bg-slate-900 p-6 sm:p-8 flex flex-col min-h-0 overflow-y-auto">
-                 <div className="flex items-center gap-2 mb-6">
-                    <History className="h-5 w-5 text-primary" />
-                    <h4 className="font-bold text-sm uppercase tracking-wider dark:text-white">Audit Trail / Riwayat</h4>
+                <div className="h-px bg-slate-100 dark:bg-slate-800" />
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="h-9 w-9 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                        <Calendar className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="min-w-0 text-left">
+                        <p className="text-[9px] font-bold text-slate-400 uppercase leading-none mb-1">Mulai</p>
+                        <p className="text-[11px] font-bold dark:text-white truncate">{format(new Date(selectedReq.startTime), 'HH:mm - dd/MM/yy')}</p>
+                    </div>
                   </div>
+                  <div className="flex items-center gap-3">
+                    <div className="h-9 w-9 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                        <Clock className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="min-w-0 text-left">
+                        <p className="text-[9px] font-bold text-slate-400 uppercase leading-none mb-1">Selesai</p>
+                        <p className="text-[11px] font-bold dark:text-white truncate">{format(new Date(selectedReq.endTime), 'HH:mm - dd/MM/yy')}</p>
+                    </div>
+                  </div>
+                </div>
 
-                  <div className="space-y-6">
-                    {selectedReq.logs?.map((log, i) => (
-                       <div key={i} className="flex gap-4 relative">
-                          {i !== (selectedReq.logs?.length || 0) - 1 && (
-                             <div className="absolute left-[9px] top-6 w-[2px] h-full bg-slate-200 dark:bg-slate-800" />
-                          )}
-                          <div className={cn(
-                             "h-[20px] w-[20px] rounded-full border-4 border-white dark:border-slate-900 z-10 shrink-0 mt-1",
-                             i === selectedReq.logs!.length - 1 ? "bg-primary animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]" : "bg-slate-300 dark:bg-slate-700"
-                          )} />
-                          <div className="space-y-1 pb-4 flex-1">
-                             <div className="flex items-center justify-between gap-4">
-                                <p className="text-xs font-black dark:text-white uppercase tracking-tight">{log.status.replace('_', ' ')}</p>
-                                <p className="text-[10px] font-medium text-slate-400 shrink-0">{format(new Date(log.timestamp), 'HH:mm - dd/MM')}</p>
-                             </div>
-                             <p className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed">{log.message}</p>
-                             <div className="flex items-center gap-1.5 mt-1 text-[10px] text-primary font-bold">
-                                <UserIcon className="h-3 w-3" />
-                                <span className="underline decoration-primary/30 underline-offset-2">{log.actor}</span>
-                             </div>
-                          </div>
-                       </div>
-                    ))}
-                 </div>
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-xs font-medium italic text-slate-500 border dark:border-slate-800 text-left">
+                  "{selectedReq.jobDescription}"
+                </div>
+
+                <div className="flex flex-col gap-2 pt-2">
+                  <Button 
+                      size="sm" 
+                      className="rounded-xl h-11 font-bold bg-emerald-500 hover:bg-emerald-600 border-none transition-all active:scale-95"
+                      onClick={() => handleShareWA(selectedReq.id)}
+                  >
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Kirim ke WhatsApp
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="rounded-xl h-11 font-bold active:scale-95 dark:text-white dark:border-slate-800"
+                    onClick={handleDownload}
+                  >
+                      <Download className="h-4 w-4 mr-2" />
+                      Unduh PDF
+                  </Button>
+                </div>
               </div>
-            </motion.div>
+            </div>
+
+            {/* Right Column: Audit Trail */}
+            <div className="flex-1 bg-slate-50 dark:bg-slate-900 p-6 sm:p-8 flex flex-col min-h-0 overflow-y-auto">
+               <div className="flex items-center gap-2 mb-6">
+                  <History className="h-5 w-5 text-primary" />
+                  <h4 className="font-bold text-sm uppercase tracking-wider dark:text-white">Audit Trail / Riwayat</h4>
+                </div>
+
+                <div className="space-y-6">
+                  {selectedReq.logs?.map((log, i) => (
+                     <div key={i} className="flex gap-4 relative">
+                        {i !== (selectedReq.logs?.length || 0) - 1 && (
+                           <div className="absolute left-[9px] top-6 w-[2px] h-full bg-slate-200 dark:bg-slate-800" />
+                        )}
+                        <div className={cn(
+                           "h-[20px] w-[20px] rounded-full border-4 border-white dark:border-slate-900 z-10 shrink-0 mt-1",
+                           i === selectedReq.logs!.length - 1 ? "bg-primary animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]" : "bg-slate-300 dark:bg-slate-700"
+                        )} />
+                        <div className="space-y-1 pb-4 flex-1 text-left">
+                           <div className="flex items-center justify-between gap-4">
+                              <p className="text-xs font-black dark:text-white uppercase tracking-tight">{log.status.replace('_', ' ')}</p>
+                              <p className="text-[10px] font-medium text-slate-400 shrink-0">{format(new Date(log.timestamp), 'HH:mm - dd/MM')}</p>
+                           </div>
+                           <p className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed">{log.message}</p>
+                           <div className="flex items-center gap-1.5 mt-1 text-[10px] text-primary font-bold">
+                              <UserIcon className="h-3 w-3" />
+                              <span className="underline decoration-primary/30 underline-offset-2 tracking-tighter truncate">{log.actor}</span>
+                           </div>
+                        </div>
+                     </div>
+                  ))}
+               </div>
+            </div>
           </div>
         )}
-      </AnimatePresence>
+      </Modal>
     </div>
   );
 };
