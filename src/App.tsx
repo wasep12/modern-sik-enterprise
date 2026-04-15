@@ -13,6 +13,7 @@ const ApprovalWorkflow = lazy(() => import('./features/approval/ApprovalWorkflow
 const CheckPoint = lazy(() => import('./features/security/CheckPoint').then(module => ({ default: module.CheckPoint })));
 const UserManagement = lazy(() => import('./features/admin/UserManagement').then(module => ({ default: module.UserManagement })));
 const ActivityLog = lazy(() => import('./features/admin/ActivityLog').then(module => ({ default: module.ActivityLog })));
+const ProfilePage = lazy(() => import('./features/profile/ProfilePage').then(module => ({ default: module.ProfilePage })));
 
 // Global Loading State
 const PageLoader = () => (
@@ -52,6 +53,7 @@ const App: React.FC = () => {
                     <Route path="/security" element={<CheckPoint />} />
                     <Route path="/admin/users" element={<UserManagement />} />
                     <Route path="/admin/logs" element={<ActivityLog />} />
+                    <Route path="/profile" element={<ProfilePage />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </Suspense>

@@ -212,7 +212,7 @@ export const CheckPoint: React.FC = () => {
                           )}
                           {selectedReq.status === 'CHECKED_IN' && (
                             <Button 
-                              className="flex-1 rounded-2xl bg-slate-950 dark:bg-white dark:text-slate-950 hover:bg-black h-14 sm:h-16 font-black text-base shadow-xl dark:shadow-none transition-all border-none"
+                              className="flex-1 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 h-14 sm:h-16 font-black text-base shadow-xl shadow-slate-800/20 dark:shadow-none transition-all border-none"
                               onClick={() => checkOut(selectedReq.id)}
                             >
                               <LogOut className="mr-2 h-5 w-5" />

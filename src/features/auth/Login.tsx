@@ -98,7 +98,7 @@ export const Login: React.FC = () => {
            <h1 className="text-2xl font-black text-slate-800 dark:text-white tracking-tighter uppercase mb-1">
               SIK <span className="text-primary italic">DIGITAL</span>
            </h1>
-           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">Corporate Secure Gateway</p>
+           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">Sistem Informasi Kerja Digital</p>
         </div>
 
         {/* Login Card */}
@@ -140,9 +140,9 @@ export const Login: React.FC = () => {
                   type="button" 
                   variant="ghost"
                   onClick={() => setShowPassword(!showPassword)} 
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors h-10 w-10 border-none"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors h-12 w-12 border-none active:scale-90"
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPassword ? <EyeOff className="h-7 w-7" /> : <Eye className="h-7 w-7" />}
                 </Button>
               </div>
 
@@ -151,7 +151,7 @@ export const Login: React.FC = () => {
                 className="w-full h-14 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-950 hover:opacity-90 font-black text-xs uppercase tracking-[0.2em] shadow-xl transition-all active:scale-95 disabled:opacity-50"
                 disabled={isLoading || isSuccess}
               >
-                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : isSuccess ? <CheckCircle2 className="h-4 w-4" /> : "Sign In Secure"}
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : isSuccess ? <CheckCircle2 className="h-4 w-4" /> : "Masuk ke Dashboard"}
               </Button>
            </form>
 
@@ -162,7 +162,7 @@ export const Login: React.FC = () => {
                  className="text-[10px] font-black text-slate-400 hover:text-primary uppercase tracking-widest transition-colors flex items-center justify-center gap-2 mx-auto h-auto py-2 border-none"
                >
                   <Users className="h-3 w-3" />
-                  Demo Profiles
+                  Pilih Akun Contoh
                   <ChevronRight className={cn("h-3 w-3 transition-transform", showDemo && "rotate-90")} />
                </Button>
            </div>
@@ -196,7 +196,7 @@ export const Login: React.FC = () => {
         {/* Footer */}
         <div className="mt-8 text-center opacity-30 select-none">
            <Fingerprint className="h-8 w-8 text-slate-400 mx-auto" />
-           <p className="text-[8px] font-black uppercase tracking-[0.4em] mt-2 text-slate-500">Encrypted Infrastructure</p>
+           <p className="text-[8px] font-black uppercase tracking-[0.4em] mt-2 text-slate-500">Infrastruktur Aman & Terpercaya</p>
         </div>
       </motion.div>
     </div>

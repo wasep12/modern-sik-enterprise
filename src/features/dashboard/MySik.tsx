@@ -128,13 +128,33 @@ const GreetingHeader: React.FC<{ user: any; requests: SikRequest[] }> = ({ user,
              </div>
           </div>
           <div className="flex gap-3 shrink-0 mt-2 sm:mt-0">
-             <div className="px-4 py-2 bg-white/60 dark:bg-slate-800/60 rounded-xl border dark:border-slate-700 shadow-sm flex flex-row sm:flex-col items-center gap-3 sm:gap-0">
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest sm:mb-1">Status SIK</p>
-                <div className="flex items-center gap-1.5">
+             {user?.role === 'USER' && (
+               <div className="px-4 py-2 bg-white/60 dark:bg-slate-800/60 rounded-xl border dark:border-slate-700 shadow-sm flex flex-row sm:flex-col items-center gap-3 sm:gap-0">
+                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest sm:mb-1">Status SIK</p>
+                 <div className="flex items-center gap-1.5">
                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                    <p className="text-[10px] sm:text-xs font-black dark:text-white uppercase">Valid</p>
-                </div>
-             </div>
+                 </div>
+               </div>
+             )}
+             {user?.role === 'SECURITY' && (
+               <div className="px-4 py-2 bg-white/60 dark:bg-slate-800/60 rounded-xl border dark:border-slate-700 shadow-sm flex flex-row sm:flex-col items-center gap-3 sm:gap-0">
+                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest sm:mb-1">Checkpoint</p>
+                 <div className="flex items-center gap-1.5">
+                   <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                   <p className="text-[10px] sm:text-xs font-black dark:text-white uppercase">Aktif</p>
+                 </div>
+               </div>
+             )}
+             {(user?.role === 'ADMIN' || user?.role === 'DEPUTY' || user?.role === 'OP_HEAD' || user?.role === 'GM_DIRECTOR') && (
+               <div className="px-4 py-2 bg-white/60 dark:bg-slate-800/60 rounded-xl border dark:border-slate-700 shadow-sm flex flex-row sm:flex-col items-center gap-3 sm:gap-0">
+                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest sm:mb-1">Sistem</p>
+                 <div className="flex items-center gap-1.5">
+                   <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                   <p className="text-[10px] sm:text-xs font-black dark:text-white uppercase">Online</p>
+                 </div>
+               </div>
+             )}
           </div>
        </div>
     </div>
@@ -232,35 +252,10 @@ export const MySik: React.FC = () => {
         )}
       </div>
 
-      <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[40px] shadow-luxury ring-1 ring-white/20 dark:ring-white/5 overflow-hidden transform-gpu min-h-[500px]">
-        <div className="p-6 sm:p-8 border-b dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h3 className="font-black text-xl tracking-tighter dark:text-white leading-none uppercase">Riwayat Pengajuan SIK</h3>
-            <p className="text-[10px] text-slate-400 font-bold mt-2 uppercase tracking-widest">Halaman {currentPage} dari {totalPages || 1}</p>
-          </div>
-          <div className="flex items-center gap-3">
-             <div className="flex items-center bg-white dark:bg-slate-800 p-1.5 rounded-2xl shadow-sm border dark:border-slate-700">
-                <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="h-9 w-9 dark:text-white rounded-xl active:scale-90" 
-                    disabled={currentPage === 1 || isLoading}
-                    onClick={() => handlePageChange(currentPage - 1)}
-                >
-                    <ChevronLeft className="h-5 w-5" />
-                </Button>
-                <div className="px-4 text-sm font-black text-primary">{currentPage}</div>
-                <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="h-9 w-9 dark:text-white rounded-xl active:scale-90" 
-                    disabled={currentPage >= totalPages || isLoading}
-                    onClick={() => handlePageChange(currentPage + 1)}
-                >
-                    <ChevronRight className="h-5 w-5" />
-                </Button>
-             </div>
-          </div>
+      <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[40px] shadow-luxury ring-1 ring-white/20 dark:ring-white/5 overflow-hidden transform-gpu">
+        <div className="p-6 sm:p-8 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+          <h3 className="font-black text-xl tracking-tighter dark:text-white leading-none uppercase">Riwayat Pengajuan SIK</h3>
+          <p className="text-[10px] text-slate-400 font-bold mt-2 uppercase tracking-widest">Data pengajuan izin kerja Anda</p>
         </div>
 
         {/* TABLE HEADERS (Desktop Only) */}
@@ -374,19 +369,89 @@ export const MySik: React.FC = () => {
             </div>
           ) : (
             <div className="py-20 flex items-center justify-center">
+              {currentUser?.role === 'USER' ? (
                 <EmptyState 
-                    icon={FileText}
-                    title="Riwayat Masih Kosong"
-                    description="Anda belum memiliki pengajuan. Hubungi Admin atau buat pengajuan pertama Anda untuk akses area."
-                    action={{
-                        label: "Buat Pengajuan SIK",
-                        onClick: () => navigate('/request')
-                    }}
-                    className="max-w-md"
+                  icon={FileText}
+                  title="Riwayat Masih Kosong"
+                  description="Anda belum memiliki pengajuan SIK. Buat pengajuan pertama Anda untuk mendapatkan akses area kerja."
+                  action={{
+                    label: "Buat Pengajuan SIK",
+                    onClick: () => navigate('/request')
+                  }}
+                  className="max-w-md"
                 />
+              ) : currentUser?.role === 'SECURITY' ? (
+                <EmptyState 
+                  icon={History}
+                  title="Belum Ada Aktivitas"
+                  description="Belum ada riwayat check-in / check-out tercatat. Gunakan Security Checkpoint untuk memverifikasi personil."
+                  className="max-w-md"
+                />
+              ) : (
+                <EmptyState 
+                  icon={History}
+                  title="Tidak Ada Pengajuan"
+                  description="Belum ada data pengajuan yang perlu ditampilkan. Pengajuan dari seluruh personil akan muncul di Antrian Persetujuan."
+                  className="max-w-md"
+                />
+              )}
             </div>
           )}
         </div>
+
+        {/* Pagination Footer */}
+        {!isLoading && myRequests.length > 0 && (
+          <div className="px-5 sm:px-8 py-4 sm:py-5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-50/50 dark:bg-slate-800/20">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              {(currentPage - 1) * itemsPerPage + 1}–{Math.min(currentPage * itemsPerPage, myRequests.length)} dari {myRequests.length} pengajuan
+            </p>
+            <div className="flex items-center gap-1 bg-white dark:bg-slate-800 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-700 shadow-sm">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-white disabled:opacity-30 border-none"
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1)
+                .reduce<(number | '…')[]>((acc, p, i, arr) => {
+                  if (i > 0 && p - (arr[i - 1] as number) > 1) acc.push('…');
+                  acc.push(p);
+                  return acc;
+                }, [])
+                .map((p, i) =>
+                  p === '…' ? (
+                    <span key={`ellipsis-${i}`} className="px-1 text-xs text-slate-400 font-black">…</span>
+                  ) : (
+                    <button
+                      key={p}
+                      onClick={() => handlePageChange(p as number)}
+                      className={cn(
+                        "h-8 w-8 rounded-xl text-xs font-black transition-all active:scale-90",
+                        currentPage === p
+                          ? "bg-primary text-white shadow-md shadow-primary/30"
+                          : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700"
+                      )}
+                    >
+                      {p}
+                    </button>
+                  )
+                )}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-white disabled:opacity-30 border-none"
+                disabled={currentPage >= totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* SIK Detail Modal */}
